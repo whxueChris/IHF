@@ -1,0 +1,4 @@
+TanvasTouch_Posture/packages/
+*.pdb
+*.nupkg
+*.onnx

@@ -1,0 +1,141 @@
+<!--
+ *
+ * Tanvas.TanvasTouch.targets
+ *
+ * Largely based on System.Data.SQLite.Core.targets,
+ * written by Joe Mistachkin and David Archer.
+ *
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+  ******************************************************************************
+  **                          Load Per-User Settings                          **
+  ******************************************************************************
+  -->
+
+  <!--
+      NOTE: If the per-user settings file exists, import it now.  The contained
+            settings, if any, will override the default ones provided below.
+  -->
+  <Import Condition="'$(MSBuildThisFileDirectory)' != '' And
+                     HasTrailingSlash('$(MSBuildThisFileDirectory)') And
+                     Exists('$(MSBuildThisFileDirectory)Tanvas.TanvasTouch.targets.user')"
+          Project="$(MSBuildThisFileDirectory)Tanvas.TanvasTouch.targets.user" />
+
+  <!--
+  ******************************************************************************
+  **                    TanvasTouch C API Library Build Items                 **
+  ******************************************************************************
+  -->
+
+  <ItemGroup>
+    <TanvasTouchCAPIFiles Condition="'$(MSBuildThisFileDirectory)' != '' And
+                                   HasTrailingSlash('$(MSBuildThisFileDirectory)')"
+                        Include="$(MSBuildThisFileDirectory)**\tanvastouch.*" />
+  </ItemGroup>
+
+  <!--
+  ******************************************************************************
+  **                   TanvasTouch C API Library Content Items                **
+  ******************************************************************************
+  -->
+
+  <ItemGroup Condition="'$(ContentTanvasTouchCAPIFiles)' != '' And
+                        '$(ContentTanvasTouchCAPIFiles)' != 'false' And
+                        '@(TanvasTouchCAPIFiles)' != ''">
+    <Content Include="@(TanvasTouchCAPIFiles)">
+      <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <!--
+  ******************************************************************************
+  **                   TanvasTouch C API Library Build Targets                **
+  ******************************************************************************
+  -->
+
+  <Target Name="CopyTanvasTouchCAPIFiles"
+          Condition="'$(CopyTanvasTouchCAPIFiles)' != 'false' And
+                     '$(OutDir)' != '' And
+                     HasTrailingSlash('$(OutDir)') And
+                     Exists('$(OutDir)')"
+          Inputs="@(TanvasTouchCAPIFiles)"
+          Outputs="@(TanvasTouchCAPIFiles -> '$(OutDir)%(RecursiveDir)%(Filename)%(Extension)')">
+    <!--
+        NOTE: Copy tanvastouch.dll aand all related files, for every
+              architecture that we support, to the build output directory.
+    -->
+    <Copy SourceFiles="@(TanvasTouchCAPIFiles)"
+          DestinationFiles="@(TanvasTouchCAPIFiles -> '$(OutDir)%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+
+  <!--
+  ******************************************************************************
+  -->
+
+  <Target Name="CleanTanvasTouchCAPIFiles"
+          Condition="'$(CleanTanvasTouchCAPIFiles)' != 'false' And
+                     '$(OutDir)' != '' And
+                     HasTrailingSlash('$(OutDir)') And
+                     Exists('$(OutDir)')">
+    <!--
+        NOTE: Delete tanvastouch.dll and all related files, for every
+              architecture that we support, from the build output directory.
+    -->
+    <Delete Files="@(TanvasTouchCAPIFiles -> '$(OutDir)%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+
+  <!--
+  ******************************************************************************
+  -->
+
+  <Target Name="CollectTanvasTouchCAPIFiles"
+          Condition="'$(CollectTanvasTouchCAPIFiles)' != 'false'">
+    <ItemGroup>
+      <FilesForPackagingFromProject Include="@(TanvasTouchCAPIFiles)">
+        <DestinationRelativePath>bin\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+      </FilesForPackagingFromProject>
+    </ItemGroup>
+  </Target>
+
+  <!--
+  ******************************************************************************
+  **                 TanvasTouch C API Library Build Properties               **
+  ******************************************************************************
+  -->
+
+  <PropertyGroup>
+    <PostBuildEventDependsOn>
+      $(PostBuildEventDependsOn);
+      CopyTanvasTouchCAPIFiles;
+    </PostBuildEventDependsOn>
+    <BuildDependsOn>
+      $(BuildDependsOn);
+      CopyTanvasTouchCAPIFiles;
+    </BuildDependsOn>
+    <CleanDependsOn>
+      $(CleanDependsOn);
+      CleanTanvasTouchCAPIFiles;
+    </CleanDependsOn>
+  </PropertyGroup>
+
+  <!--
+  ******************************************************************************
+  **   TanvasTouch C API Library Publish Properties for Visual Studio 201x    **
+  ******************************************************************************
+  -->
+
+  <PropertyGroup Condition="'$(VisualStudioVersion)' == '' Or
+                            '$(VisualStudioVersion)' == '10.0' Or
+                            '$(VisualStudioVersion)' == '11.0' Or
+                            '$(VisualStudioVersion)' == '12.0' Or
+                            '$(VisualStudioVersion)' == '14.0' Or
+                            '$(VisualStudioVersion)' == '15.0'">
+    <PipelineCollectFilesPhaseDependsOn>
+      CollectTanvasTouchCAPIFiles;
+      $(PipelineCollectFilesPhaseDependsOn);
+    </PipelineCollectFilesPhaseDependsOn>
+  </PropertyGroup>
+</Project>
+
