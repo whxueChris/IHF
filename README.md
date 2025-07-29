@@ -62,7 +62,7 @@ Tanvas
 5. Export the `.ipa` and install it on your iOS device.
 
 
-### Sequence-Aware Finger Trajectory Prediction (SAFTP)
+### Swift Anchor-Free Finger Trajectory Prediction  (SAFTP)
 
 This repository contains code for finger trajectory prediction models using various transformer-based architectures.
 
