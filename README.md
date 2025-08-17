@@ -142,5 +142,8 @@ bash eval_all_models.sh
 - `--teacher_forcing_ratio`: Ratio for teacher forcing in autoregressive training
 - `--evaluate_only`: Only evaluate the model without training
 
-
 The shell scripts (train_all_models.sh and eval_all_models.sh) should also be updated to include the --data_dir parameter when calling the Python scripts.
+
+## Plot and Measure Latency
+
+-`plot_image_analysis.py`   (Benchmarking and visualization tool for comparing performance metrics of different trajectory prediction models. Measures inference latency on CPU/GPU and generates comparison plots of model performance across different sequence lengths)
