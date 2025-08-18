@@ -61,6 +61,8 @@ Tanvas
 4. Set up the initial view controller (via Storyboard or SwiftUI), then connect your iOS device, and build the project.
 5. Export the `.ipa` and install it on your iOS device.
 
+### Friction Data
+This folder contains the digital stimuli and experimental friction measurement data used in this study.
 
 ### Swift Anchor-Free Finger Trajectory Prediction  (SAFTP)
 
