@@ -1,6 +1,6 @@
 # HAF-preview
 
-## Haptic Affordance Fields Enable Accessible Exploration of Digital Images
+## Touching Images: Haptic Affordance Fields for Accessible Exploration
 
 
 **Abstract:** Haptic interaction extends the affordance of images by rendering visual cues into haptic feedback, providing accessible exploration of digital images for individuals who are blind or partially sighted. Current haptic rendering techniques, however, lack a universal and dynamically responsive strategy for diverse digital information and platforms. Here, we introduce the concept of haptic affordance field, a generalized  haptic generation framework that adaptively renders haptic information from arbitrary digital images for diverse platforms through geometric reconstruction, digital stimuli calculation, and user perception. We validated  it by rendering images with human postures. Experiments confirm that our approach accurately reproduces physical stimuli, enabling users to explore images accessibly. This framework has the potential to advance digital inclusion, enhance accessibility, and transform user interaction. 
