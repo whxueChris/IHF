@@ -1,4 +1,4 @@
-# HAF-preview
+# IHF-preview
 
 ## Touching Images: Haptic Affordance Fields for Accessible Exploration
 
