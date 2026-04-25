@@ -46,7 +46,7 @@ This repository contains source code and data for IHF haptic information renderi
 │   ├── Stand/                  (Point cloud data of the standing posture)
 │   └── Yoga/                   (Point cloud data of the yoga postures)
 ├── TanvasTouch_Posture/        (Visual Studio project for haptic rendering on TanvasTouch. It captures real-time finger trajectories, predicts future movements, receives digital stimuli from Python, and generates corresponding physical stimuli.)
-└── recive.py                   (Script for processing trajectory data and computing digital stimuli.)
+└── receive.py                   (Script for processing trajectory data and computing digital stimuli.)
 
 ```
 
