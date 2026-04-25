@@ -1,14 +1,14 @@
-# HAF-preview
+# IHF-preview
 
-## Touching Images: Haptic Affordance Fields for Accessible Exploration
+## Bridging images and touch through an interactive haptic field system
 
 
-**Abstract:** Images and videos dominate online communication, but their affordance, the ways their design enables interaction, is primarily visual, excluding the 27.5% of people who are blind or partially sighted. Introducing new affordances like haptic feedback could improve accessibility. However, scalable solutions remain elusive due to the diversity and volume of digital images. Here, we introduce the haptic affordance field, a generalized haptic generation framework that adaptively renders haptic information from arbitrary digital images for diverse platforms through geometric reconstruction, digital stimuli calculation, and user perception. We validated it by rendering images with human postures. Experiments confirm that our approach accurately reproduces physical stimuli, enabling users to explore images accessibly. This framework has the potential to advance digital inclusion, enhance accessibility, and transform user interaction. 
+**Abstract:** As digital information becomes pervasive, haptic interaction is emerging as an important interface for human–machine communication, particularly for people who are blind or partially sighted, for whom tactile feedback is crucial to accessing visual content. However, existing haptic rendering approaches are typically tailored to specific devices or content types, and lack a common computational representation that can support both an optimized haptic system and deployment, with controlled trade-offs, across diverse imagery and hardware platforms. Here we introduce the interactive haptic field (IHF), a generalized computational framework that converts arbitrary images into a device-agnostic haptic representation, which can then be realized in optimized haptic systems and deployed across multiple feedback modalities and devices. IHF combines image-based 3D geometry reconstruction with a low-latency, anchor-free finger trajectory prediction model to generate localized, path-dependent digital stimuli, which are then mapped onto device-specific actuation signals. We implement an integrated, closed-loop image-to-haptics system that co-designs the IHF framework with an electroadhesion-based surface haptic display, and we further demonstrate deployment on a smartphone vibration interface, achieving image-recognition success rates above 70% in tasks involving human posture classification, pathology case differentiation and emoji identification. By decoupling haptic representation from specific devices and content domains, while providing a high-fidelity reference implementation and demonstrating portability to commodity hardware, IHF offers a scalable strategy for tactile displays of images, with implications for accessible interfaces in education, healthcare, robotics and emotion interaction.
 
 
 ## Instructions for use
 
-This repository contains source code and data for IHF haptic information rendering of human posture on TanvasTouch and iOS devices.
+This repository contains source code and data for IHF haptic information rendering of human posture, Pathology cases and emojis on TanvasTouch and iOS devices.
 
 ### TanvasTouch
 #### System requirements
@@ -24,22 +24,29 @@ This repository contains source code and data for IHF haptic information renderi
 
 #### Folder structure
 
-- The file is structured as follows:
+- The TanvasTouch-related files are organized as a three-level structure under `3d_model/`:
 
 ```
-Tanvas
-├── Dancing/                (Point cloud data of dancing posture)
-|   |-- cluster_points_1.txt 
-    |-- cluster_points_2.txt 
-    |-- ...
-├── Gymnastics/             (Point cloud data of gymnastics posture)
-├── Hands up/               (Point cloud data of hands posture)
-├── Horse stance/           (Point cloud data of  horse stance posture)
-├── Stand/                  (Point cloud data of stand posture)
-├── Yoga/                   (Point cloud data of yoga postures)
-├── Pretraining/                   (Point cloud data of pretraining postures)
-├── TanvasTouch_Posture/    (Visual Studio project for haptic rendering on TanvasTouch.It captures real-time finger trajectories, predicts future movements, receives digital stimuli from Python, and generates corresponding physical stimuli)
-├── recive.py          (Script for processing trajectory date, and compute digital stimuli)
+3d_model/
+├── Emojis/
+│   ├── impatient/              (Point cloud data of the impatient emoji)
+│   ├── puzzled/                (Point cloud data of the puzzled emoji)
+│   └── screaming/              (Point cloud data of the screaming emoji)
+├── Pathology case/
+│   ├── handnormal/             (Point cloud data of the normal hand case)
+│   ├── Normalheart/            (Point cloud data of the normal heart case)
+│   ├── Pellagra hand/          (Point cloud data of the pellagra hand case)
+│   └── VSDheart/               (Point cloud data of the ventricular septal defect heart case)
+├── Postures/
+│   ├── Dancing/                (Point cloud data of the dancing posture)
+│   ├── Gymnastics/             (Point cloud data of the gymnastics posture)
+│   ├── Hands up/               (Point cloud data of the hands-up posture)
+│   ├── Horse stance/           (Point cloud data of the horse-stance posture)
+│   ├── Pretraining/            (Point cloud data of the pretraining postures)
+│   ├── Stand/                  (Point cloud data of the standing posture)
+│   └── Yoga/                   (Point cloud data of the yoga postures)
+├── TanvasTouch_Posture/        (Visual Studio project for haptic rendering on TanvasTouch. It captures real-time finger trajectories, predicts future movements, receives digital stimuli from Python, and generates corresponding physical stimuli.)
+└── recive.py                   (Script for processing trajectory data and computing digital stimuli.)
 
 ```
 
