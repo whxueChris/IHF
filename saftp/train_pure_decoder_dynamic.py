@@ -429,7 +429,7 @@ if __name__ == "__main__":
     data_dir = Path(args.data_dir)
     model, _, _ = train_and_evaluate_models(all_file_path=[data_dir / "finger_trajectory_straight_dec_2021",
                                                data_dir / "finger_trajectory_incline_jan_2024",
-                                               data_dir / "finger_trajectory_short_jan_2024"],,
+                                               data_dir / "finger_trajectory_short_jan_2024"],
                                             window_size_range=(args.window_size_min, args.window_size_max),
                                             val_window_size_range=(args.val_window_size_min, args.val_window_size_max),
                                             mode=args.mode,
