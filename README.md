@@ -25,7 +25,7 @@ IHF/
 ├── 3d_model/                       Three-dimensional assets and digital-stimulus resources
 ├── Friction_Data/                  Computed stimuli and experimental friction data
 ├── saftp/                          SAFTP and comparison-model code
-└── tanvastouch_finger_trajectory/  Recorded finger-trajectory data
+└── finger_trajectory_dataset/  Recorded finger-trajectory data
 ```
 
 ### Three-dimensional content and digital stimuli
@@ -77,7 +77,7 @@ git clone https://huggingface.co/datasets/ownt/IHF data
 
 ```bash
 python train_pure_decoder_dynamic.py \
-  --data_dir ./data/tanvastouch_finger_trajectory \
+  --data_dir ./data/finger_trajectory_dataset \
   --mode TDec
 ```
 
@@ -85,7 +85,7 @@ python train_pure_decoder_dynamic.py \
 
 ```bash
 python train_pure_decoder_dynamic.py \
-  --data_dir ./data/tanvastouch_finger_trajectory \
+  --data_dir ./data/finger_trajectory_dataset \
   --mode TDec \
   --evaluate_only \
   --val_window_size_min 3 \
