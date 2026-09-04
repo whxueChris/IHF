@@ -1,158 +1,129 @@
-# IHF-preview
+# Interactive Haptic Field
 
-## Bridging images and touch through an interactive haptic field system
+## A closed-loop image-to-haptics framework for accessible visual exploration
 
+## Overview
 
-**Abstract:** As digital information becomes pervasive, haptic interaction is emerging as an important interface for human–machine communication, particularly for people who are blind or partially sighted, for whom tactile feedback is crucial to accessing visual content. However, existing haptic rendering approaches are typically tailored to specific devices or content types, and lack a common computational representation that can support both an optimized haptic system and deployment, with controlled trade-offs, across diverse imagery and hardware platforms. Here we introduce the interactive haptic field (IHF), a generalized computational framework that converts arbitrary images into a device-agnostic haptic representation, which can then be realized in optimized haptic systems and deployed across multiple feedback modalities and devices. IHF combines image-based 3D geometry reconstruction with a low-latency, anchor-free finger trajectory prediction model to generate localized, path-dependent digital stimuli, which are then mapped onto device-specific actuation signals. We implement an integrated, closed-loop image-to-haptics system that co-designs the IHF framework with an electroadhesion-based surface haptic display, and we further demonstrate deployment on a smartphone vibration interface, achieving image-recognition success rates above 70% in tasks involving human posture classification, pathology case differentiation and emoji identification. By decoupling haptic representation from specific devices and content domains, while providing a high-fidelity reference implementation and demonstrating portability to commodity hardware, IHF offers a scalable strategy for tactile displays of images, with implications for accessible interfaces in education, healthcare, robotics and emotion interaction.
+The interactive haptic field (IHF) is a closed-loop image-to-haptics framework that converts image-derived geometry into position-dependent tactile cues during active fingertip exploration. IHF combines three-dimensional geometry reconstruction, low-latency fingertip trajectory prediction, spatially aligned digital-stimulus computation and hardware-specific actuation. The accompanying manuscript evaluates IHF using six human postures and three emojis with participants who had residual vision or blindness.
 
+## Repository and manuscript correspondence
 
-## Instructions for use
+This is the companion implementation and data repository for the IHF manuscript. The public release covers the computational IHF pipeline and the research resources used to develop and evaluate it, including:
 
-This repository contains source code and data for IHF haptic information rendering of human posture, Pathology cases and emojis on TanvasTouch and iOS devices.
+- three-dimensional content assets and digital-stimulus resources
+- finger-trajectory data
+- SAFTP and the comparison trajectory-prediction models
+- model-training and evaluation scripts
+- friction data used in the physical-rendering analysis
 
-### TanvasTouch
-#### System requirements
+The participant-facing closed-loop system described in the manuscript integrates a Redmi Pad 2 Pro Android tablet, a custom infrared touch frame, an ITO-coated glass interface and a custom high-voltage electroadhesive driver. Device-specific Android application files, infrared-frame control files, PCB layouts, firmware and circuit-design files are not distributed through this public software repository. The evaluated hardware architecture and experimental configuration are described in the Methods and Supplementary Information.
 
-- Test on **Windows 11**
-- **.NET Framework 4.8** or later / **.NET Core 3.1** or later
-- Python 3, Visual Studio 2019/2022
-- Required NuGet Packages: `Tanvas.TanvasTouch`, `Tanvas.TanvasTouch.WpfUtilities`,`Microsoft.ML.OnnxRuntime`, `Microsoft.ML.OnnxRuntime.Tensors`, `NumSharp`, `MathNet.Numerics`
-- Required Python Packages: `pywin32`, `numpy`, `matplotlib`, `opencv-python`, `scipy`, `scikit-learn`, `argparse`
-- TanvasTouch Engine,  please check https://tanvas.co/resources/tanvastouch-basics for more details
+## Repository structure
 
-
-
-#### Folder structure
-
-- The TanvasTouch-related files are organized as a three-level structure under `3d_model/`:
-
-```
-3d_model/
-├── Emojis/
-│   ├── impatient/              (Point cloud data of the impatient emoji)
-│   ├── puzzled/                (Point cloud data of the puzzled emoji)
-│   └── screaming/              (Point cloud data of the screaming emoji)
-├── Pathology case/
-│   ├── handnormal/             (Point cloud data of the normal hand case)
-│   ├── Normalheart/            (Point cloud data of the normal heart case)
-│   ├── Pellagra hand/          (Point cloud data of the pellagra hand case)
-│   └── VSDheart/               (Point cloud data of the ventricular septal defect heart case)
-├── Postures/
-│   ├── Dancing/                (Point cloud data of the dancing posture)
-│   ├── Gymnastics/             (Point cloud data of the gymnastics posture)
-│   ├── Hands up/               (Point cloud data of the hands-up posture)
-│   ├── Horse stance/           (Point cloud data of the horse-stance posture)
-│   ├── Pretraining/            (Point cloud data of the pretraining postures)
-│   ├── Stand/                  (Point cloud data of the standing posture)
-│   └── Yoga/                   (Point cloud data of the yoga postures)
-├── TanvasTouch_Posture/        (Visual Studio project for haptic rendering on TanvasTouch. It captures real-time finger trajectories, predicts future movements, receives digital stimuli from Python, and generates corresponding physical stimuli.)
-└── receive.py                   (Script for processing trajectory data and computing digital stimuli.)
-
+```text
+IHF/
+├── 3d_model/                       Three-dimensional assets and digital-stimulus resources
+├── Friction_Data/                  Computed stimuli and experimental friction data
+├── saftp/                          SAFTP and comparison-model code
+└── tanvastouch_finger_trajectory/  Recorded finger-trajectory data
 ```
 
-#### Steps to run
+### Three-dimensional content and digital stimuli
 
-1. Run the python script: `python receive.py`
-2. Open the Visual Studio solution (.sln) file and run the project.
-
-
-
-### iOS device
-
-
-#### Build and deploy the iOS app through Xcode
-
-1. Open Xcode and create a new iOS App project.
-2. Copy the contents of `IOS_PoseDetector/PoseDetector/` into your project folder.
-3. In Xcode, import all `.swift` files and resources from `Model/`, `View/`, and `Data/`, and drag in the `.mlmodel` file (Xcode will auto-compile it). Merge the provided `Info.plist` to include necessary permissions.
-4. Set up the initial view controller (via Storyboard or SwiftUI), then connect your iOS device, and build the project.
-5. Export the `.ipa` and install it on your iOS device.
+The `3d_model/` directory contains the point-cloud and digital-stimulus resources used for IHF content generation. The posture and emoji assets correspond to the content classes evaluated in the manuscript.
 
 ### Friction Data
+
 This folder contains the digital stimuli and experimental friction measurement data used in this study.
 
-### Swift Anchor-Free Finger Trajectory Prediction  (SAFTP)
+## Swift Anchor-Free Finger Trajectory Prediction
 
-This repository contains code for finger trajectory prediction models using various transformer-based architectures.
+The `saftp/` directory contains code for SAFTP and the comparison finger-trajectory prediction models.
 
-#### Dataset
+### Dataset
 
-The dataset is available on HuggingFace: [<https://huggingface.co/datasets/ownt/IHF>](<https://huggingface.co/datasets/ownt/IHF>)
+The finger-trajectory dataset is available on Hugging Face at [ownt/IHF](https://huggingface.co/datasets/ownt/IHF). It contains three subdirectories:
 
-It contains three subdirectories:
-- `finger_trajectory_straight_dec_2021`: Straight finger trajectories
-- `finger_trajectory_incline_jan_2024`: Inclined finger trajectories
-- `finger_trajectory_short_jan_2024`: Short distance finger trajectories
+- `finger_trajectory_straight_dec_2021`: straight finger trajectories
+- `finger_trajectory_incline_jan_2024`: inclined finger trajectories
+- `finger_trajectory_short_jan_2024`: short-distance finger trajectories
 
-#### Setup
+### Setup
 
-1. Download our repository and open the saftp
+1. Clone the repository and enter the SAFTP directory.
 
-```angular2html
-git clone --recursive https://github.com/xwhkkk/IHF.git
-cd saftp
+```bash
+git clone --recursive https://github.com/whxueChris/IHF.git
+cd IHF/saftp
 ```
 
-2. Install saftp and its dependencies, but the package version is not strictly required.
-```angular2html
+2. Create and activate the environment.
+
+```bash
 conda env create -f environment.yaml
 conda activate saftp
 ```
 
-3. Download the dataset from HuggingFace:
+3. Download the trajectory dataset.
 
-```angular2html
+```bash
 git lfs install
 git clone https://huggingface.co/datasets/ownt/IHF data
 ```
 
+### Usage
 
-#### Usage
+#### Train one model
 
-##### Training a model
-
-```angular2html
-python train_pure_decoder_dynamic.py --data_dir ./data/tanvastouch_finger_trajectory --mode TDec
+```bash
+python train_pure_decoder_dynamic.py \
+  --data_dir ./data/tanvastouch_finger_trajectory \
+  --mode TDec
 ```
 
-##### Evaluating a model
+#### Evaluate one model
 
-```angular2html
-python train_pure_decoder_dynamic.py --data_dir ./data/tanvastouch_finger_trajectory --mode TDec --evaluate_only --val_window_size_min 3 --val_window_size_max 40
+```bash
+python train_pure_decoder_dynamic.py \
+  --data_dir ./data/tanvastouch_finger_trajectory \
+  --mode TDec \
+  --evaluate_only \
+  --val_window_size_min 3 \
+  --val_window_size_max 40
 ```
 
-##### Training all models
+#### Train all models
 
-```angular2html
+```bash
 bash train_all_models.sh
 ```
 
+#### Evaluate all models
 
-##### Evaluating all models
-
-```angular2html
+```bash
 bash eval_all_models.sh
 ```
 
-## Model Modes
+### Model modes
+
 - `standard`: Swift Anchor-Free Finger Trajectory Prediction
-- `mlp`: MLP-based Decoder for Finger Trajectory Prediction
-- `autoregressive`: Autoregressive Decoder for Finger Trajectory Prediction
-- `TDec`: Pure Transformer Decoder-only model
+- `mlp`: MLP-based trajectory prediction
+- `autoregressive`: autoregressive trajectory prediction
+- `TDec`: transformer decoder-only model
 
-## Parameters
+### Main parameters
 
-- `--data_dir`: Directory containing the finger trajectory datasets
-- `--mode`: Model architecture to use
-- `--window_size_min`: Minimum window size for training
-- `--window_size_max`: Maximum window size for training
-- `--val_window_size_min`: Minimum validation window size
-- `--val_window_size_max`: Maximum validation window size
-- `--teacher_forcing_ratio`: Ratio for teacher forcing in autoregressive training
-- `--evaluate_only`: Only evaluate the model without training
+- `--data_dir`: directory containing the finger-trajectory dataset
+- `--mode`: model architecture
+- `--window_size_min`: minimum training window size
+- `--window_size_max`: maximum training window size
+- `--val_window_size_min`: minimum validation window size
+- `--val_window_size_max`: maximum validation window size
+- `--teacher_forcing_ratio`: teacher-forcing ratio for autoregressive training
+- `--evaluate_only`: evaluate without training
 
-The shell scripts (train_all_models.sh and eval_all_models.sh) should also be updated to include the --data_dir parameter when calling the Python scripts.
+The training and evaluation shell scripts should be supplied with the same `--data_dir` used for the individual model commands.
 
-## Plot and Measure Latency
+## Plotting and latency measurement
 
--`plot_image_analysis.py`   (Benchmarking and visualization tool for comparing performance metrics of different trajectory prediction models. Measures inference latency on CPU/GPU and generates comparison plots of model performance across different sequence lengths)
+`plot_image_analysis.py` provides model-performance visualization and inference-latency measurement for the trajectory-prediction models on the selected CPU or GPU.
