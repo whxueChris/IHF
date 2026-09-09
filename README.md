@@ -25,8 +25,11 @@ IHF/
 ├── 3d_model/                       Three-dimensional assets and digital-stimulus resources
 ├── Friction_Data/                  Computed stimuli and experimental friction data
 ├── saftp/                          SAFTP and comparison-model code
-└── finger_trajectory_dataset/  Recorded finger-trajectory data
+├── finger_trajectory_dataset/      Recorded finger-trajectory data
+└── Mobile_PoseDetector/            Additional mobile prototype
 ```
+
+The mobile prototype and the TanvasTouch implementation under `3d_model/` are additional device implementations, separate from the Android participant platform described above.
 
 ### Three-dimensional content and digital stimuli
 
@@ -42,7 +45,7 @@ The `saftp/` directory contains code for SAFTP and the comparison finger-traject
 
 ### Dataset
 
-The finger-trajectory dataset is available on Hugging Face at [ownt/IHF](https://huggingface.co/datasets/ownt/IHF). It contains three subdirectories:
+The finger-trajectory dataset is included in `finger_trajectory_dataset/`. It is also available on Hugging Face at [ownt/IHF](https://huggingface.co/datasets/ownt/IHF). It contains three subdirectories:
 
 - `finger_trajectory_straight_dec_2021`: straight finger trajectories
 - `finger_trajectory_incline_jan_2024`: inclined finger trajectories
@@ -64,52 +67,36 @@ conda env create -f environment.yaml
 conda activate saftp
 ```
 
-3. Download the trajectory dataset.
-
-```bash
-git lfs install
-git clone https://huggingface.co/datasets/ownt/IHF data
-```
+3. Use the dataset included in the repository. From `IHF/saftp`, its path is `../finger_trajectory_dataset`; no separate download is required for the commands below.
 
 ### Usage
 
-#### Train one model
+#### Train SAFTP
 
 ```bash
-python train_pure_decoder_dynamic.py \
-  --data_dir ./data/finger_trajectory_dataset \
-  --mode TDec
+python train_exp_dynamic.py \
+  --data_dir ../finger_trajectory_dataset \
+  --mode standard
 ```
 
-#### Evaluate one model
+#### Evaluate SAFTP
+
+Run training first to generate the checkpoint used by evaluation. Keep the model mode and training window settings consistent with that checkpoint.
 
 ```bash
-python train_pure_decoder_dynamic.py \
-  --data_dir ./data/finger_trajectory_dataset \
-  --mode TDec \
+python train_exp_dynamic.py \
+  --data_dir ../finger_trajectory_dataset \
+  --mode standard \
   --evaluate_only \
   --val_window_size_min 3 \
   --val_window_size_max 40
 ```
 
-#### Train all models
-
-```bash
-bash train_all_models.sh
-```
-
-#### Evaluate all models
-
-```bash
-bash eval_all_models.sh
-```
-
 ### Model modes
 
-- `standard`: Swift Anchor-Free Finger Trajectory Prediction
-- `mlp`: MLP-based trajectory prediction
-- `autoregressive`: autoregressive trajectory prediction
-- `TDec`: transformer decoder-only model
+Use `train_exp_dynamic.py` with `--mode standard` for SAFTP, `--mode mlp` for the MLP baseline or `--mode autoregressive` for the autoregressive baseline. The additional decoder-only model uses `train_pure_decoder_dynamic.py --mode TDec`. Supply the same dataset path to each command.
+
+The batch scripts `train_all_models.sh` and `eval_all_models.sh` use the default dataset location `./data`. Before using them, add `--data_dir ../finger_trajectory_dataset` to each Python command in those scripts.
 
 ### Main parameters
 
@@ -121,9 +108,3 @@ bash eval_all_models.sh
 - `--val_window_size_max`: maximum validation window size
 - `--teacher_forcing_ratio`: teacher-forcing ratio for autoregressive training
 - `--evaluate_only`: evaluate without training
-
-The training and evaluation shell scripts should be supplied with the same `--data_dir` used for the individual model commands.
-
-## Plotting and latency measurement
-
-`plot_image_analysis.py` provides model-performance visualization and inference-latency measurement for the trajectory-prediction models on the selected CPU or GPU.
