@@ -22,11 +22,11 @@ INPUT_FILES = [
     ),
     (
         "supplemented_p012_p019",
-        ROOT / ("P019_2026-06-26T22-29-20_trial_summary_posture" + "\u8865\u5145" + ".csv"),
+        ROOT / "P019_2026-06-26T22-29-20_trial_summary_posture_supplemented.csv",
     ),
     (
         "supplemented_p020",
-        ROOT / ("P020_2026-06-27T21-22-19_trial_summary_posture" + "\u8865\u5145" + ".csv"),
+        ROOT / "P020_2026-06-27T21-22-19_trial_summary_posture_supplemented.csv",
     ),
 ]
 

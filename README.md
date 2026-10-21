@@ -1,6 +1,4 @@
-# Interactive Haptic Field
-
-## A closed-loop image-to-haptics framework for accessible visual exploration
+# Accessible image exploration through an interactive haptic field
 
 ## Overview
 
@@ -15,6 +13,7 @@ This is the companion implementation and data repository for the IHF manuscript.
 - SAFTP and the comparison trajectory-prediction models
 - model-training and evaluation scripts
 - friction data used in the physical-rendering analysis
+- user-study data and plotting scripts for recognition, localization, and questionnaire analyses
 
 The participant-facing closed-loop system described in the manuscript integrates a Redmi Pad 2 Pro Android tablet, a custom infrared touch frame, an ITO-coated glass interface and a custom high-voltage electroadhesive driver. Device-specific Android application files, infrared-frame control files, PCB layouts, firmware and circuit-design files are not distributed through this public software repository. The evaluated hardware architecture and experimental configuration are described in the Methods and Supplementary Information.
 
@@ -26,10 +25,15 @@ IHF/
 ├── Friction_Data/                  Computed stimuli and experimental friction data
 ├── saftp/                          SAFTP and comparison-model code
 ├── finger_trajectory_dataset/      Recorded finger-trajectory data
-└── Mobile_PoseDetector/            Additional mobile prototype
+├── Mobile_PoseDetector/            Additional mobile prototype
+└── user study/                     Recognition, localization, and questionnaire data and scripts
 ```
 
 The mobile prototype and the TanvasTouch implementation under `3d_model/` are additional device implementations, separate from the Android participant platform described above.
+
+### User study
+
+The [`user study/`](user%20study/) directory contains recognition and localization data, questionnaire responses, and plotting scripts, organized by cohort and task.
 
 ### Three-dimensional content and digital stimuli
 

@@ -33,7 +33,7 @@ EMOJI_MISMATCH_SOURCE = (
 POSTURE_MISMATCH_SOURCE = (
     MISMATCH_DIR / "blind_posture_recognition_mismatched_ihf_trials.csv"
 )
-POSTURE_MATCHED_SOURCES = [Path(__file__).resolve().parent / 'P004_2026-06-24T12-03-06_trial_summary_posture_corrected.csv', Path(__file__).resolve().parent / 'P011_2026-06-25T10-44-32_trial_summary_posture_corrected.csv', Path(__file__).resolve().parent / 'P019_2026-06-26T22-29-20_trial_summary_posture补充.csv']
+POSTURE_MATCHED_SOURCES = [Path(__file__).resolve().parent / 'P004_2026-06-24T12-03-06_trial_summary_posture_corrected.csv', Path(__file__).resolve().parent / 'P011_2026-06-25T10-44-32_trial_summary_posture_corrected.csv', Path(__file__).resolve().parent / 'P019_2026-06-26T22-29-20_trial_summary_posture_supplemented.csv']
 
 EMOJI_CHANCE = 1 / 3
 POSTURE_CHANCE = 1 / 6
