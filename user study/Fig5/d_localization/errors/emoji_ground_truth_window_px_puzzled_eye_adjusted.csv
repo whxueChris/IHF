@@ -1,0 +1,4 @@
+﻿stimulus,coordinate_system,L_target_window_x_px,L_target_window_y_px,L_target_window_xy_px,R_target_window_x_px,R_target_window_y_px,R_target_window_xy_px,M_target_window_x_px,M_target_window_y_px,M_target_window_xy_px,n_features_present,source_file
+puzzled,window,515,421,"(515, 421)",606,420,"(606, 420)",560,490,"(560, 490)",3,E:\emoji_ground_truth_window_coordinates.csv
+screaming,window,519,371,"(519, 371)",656,372,"(656, 372)",587,476,"(587, 476)",3,E:\emoji_ground_truth_window_coordinates.csv
+impatient,window,514,365,"(514, 365)",661,364,"(661, 364)",586,488,"(586, 488)",3,E:\emoji_ground_truth_window_coordinates.csv
