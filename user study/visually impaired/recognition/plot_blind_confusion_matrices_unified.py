@@ -11,7 +11,7 @@ PROJECT_ROOT = FIG6_DIR.parent
 
 # Canonical blind-posture trial exports.  Do not change these raw records: the
 # label correction below is applied only when constructing the figure matrix.
-POSTURE_INPUT_FILES = [Path(__file__).resolve().parent / 'P004_2026-06-24T12-03-06_trial_summary_posture_corrected.csv', Path(__file__).resolve().parent / 'P011_2026-06-25T10-44-32_trial_summary_posture_corrected.csv', Path(__file__).resolve().parent / 'P019_2026-06-26T22-29-20_trial_summary_posture_supplemented.csv']
+POSTURE_INPUT_FILES = [Path(__file__).resolve().parent / 'P004_2026-06-24T12-03-06_trial_summary_posture_corrected.csv', Path(__file__).resolve().parent / 'P011_2026-06-25T10-44-32_trial_summary_posture_corrected.csv', Path(__file__).resolve().parent / 'P019_2026-06-26T22-29-20_trial_summary_posture.csv']
 EMOJI_COUNTS = FIG6_DIR / "emoji_confusion_matrix_counts.csv"
 
 OUTPUT_DIR = FIG6_DIR / "output"

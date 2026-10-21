@@ -21,12 +21,12 @@ INPUT_FILES = [
         ROOT / "P011_2026-06-25T10-44-32_trial_summary_posture_corrected.csv",
     ),
     (
-        "supplemented_p012_p019",
-        ROOT / "P019_2026-06-26T22-29-20_trial_summary_posture_supplemented.csv",
+        "p012_p019",
+        ROOT / "P019_2026-06-26T22-29-20_trial_summary_posture.csv",
     ),
     (
-        "supplemented_p020",
-        ROOT / "P020_2026-06-27T21-22-19_trial_summary_posture_supplemented.csv",
+        "p020",
+        ROOT / "P020_2026-06-27T21-22-19_trial_summary_posture.csv",
     ),
 ]
 
